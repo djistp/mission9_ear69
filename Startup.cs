@@ -52,10 +52,9 @@ namespace mission9_ear69
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
+      
                     endpoints.MapDefaultControllerRoute();
-                });
+          
             });
         }
     }
