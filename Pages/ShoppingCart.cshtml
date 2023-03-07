@@ -1,0 +1,37 @@
+﻿@page
+@model mission9_ear69.Pages.ShoppingCartModel
+@{
+}
+<h1>ello mate, dis your shopping cart</h1><span class="label label-success">Success</span>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Book title</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model.basket.Items)
+            {
+        <tr>
+            <td>@i.Book.Title</td>
+            <td>@i.Quantity</td>
+            <td>@i.Book.Price</td>
+            <td>@(i.Quantity * i.Book.Price)</td>
+
+        </tr>
+            }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Total:</td>
+            <td>@Model.basket.CalculateTotal().ToString("c")</td>
+        </tr>
+    </tfoot>
+</table>
+<div>
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Continue Shopping</a>
+</div>
