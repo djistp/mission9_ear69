@@ -12,28 +12,36 @@ namespace mission9_ear69.Pages
     public class ShoppingCartModel : PageModel
     {
         private IBookstoreRepository repo { get; set; }
-        public ShoppingCartModel (IBookstoreRepository temp)
-        {
-            repo = temp;
-        }
         public Basket basket { get; set; }
         public string ReturnUrl { get; set; }
+        public ShoppingCartModel (IBookstoreRepository temp, Basket bas)
+        {
+            repo = temp;
+            basket = bas;
+        }
+       
         public void OnGet(string returnUrl)
 
         {
             ReturnUrl = returnUrl ?? "/";
-            basket = HttpContext.Session.GetJson<Basket>("basket")?? new Basket();
+
 
         }
         public IActionResult OnPost(int bookId, string returnUrl)
         {
             Book b = repo.Books.FirstOrDefault(x => x.BookId == bookId);
-            basket = HttpContext.Session.GetJson<Basket>("basket") ?? new Basket();
+
             basket.AddItem(b, 1);
-            HttpContext.Session.SetJson("basket", basket);
+      
 
-            return RedirectToPage(new { ReturnUrl = returnUrl });
+            return RedirectToPage(new {ReturnUrl = returnUrl });
 
+        }
+
+        public IActionResult OnPostRemove(int bookId, string returnUrl)
+        {
+            basket.RemoveItem(basket.Items.First(x => x.Book.BookId == bookId).Book);
+            return RedirectToPage(new {ReturnUrl = returnUrl });
         }
     }
 }
