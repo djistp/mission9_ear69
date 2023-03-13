@@ -37,6 +37,7 @@ namespace mission9_ear69
             });
 
             services.AddScoped<IBookstoreRepository, EFBookstoreRepository>();
+            services.AddScoped<IShoppingCartRepository, EFShoppingCartRepository>();
 
             services.AddRazorPages();
             services.AddDistributedMemoryCache();
